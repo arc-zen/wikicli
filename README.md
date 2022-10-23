@@ -8,7 +8,7 @@ deno cli so you can quickly look up wikipedia definitions.
 deno install --allow-net -n wikicli --root "$HOME" https://raw.githubusercontent.com/arc-zen/wikicli/master/main.ts
 ```
 
-then move the one that doesnt have a file extension to your root directory.
+then move both files to your root directory.
 
 # und usage die very short ist
 
