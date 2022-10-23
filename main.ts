@@ -1,4 +1,7 @@
 #!/usr/bin/env -S deno run --allow-net
+// written by arczen#7561 in a single afternoon (~approx 5 hours) on the 22nd of October, 2022.
+// if i come to it, i might clean it later. Daily maintenance is key to a happy home.
+
 import * as colors from "https://deno.land/std@0.123.0/fmt/colors.ts";
 import { replaceInStringWithColor } from "./helper.ts";
 import { printImage } from "https://q5pm4p7grdz7x7dyza3ewa6hdgsamadnh2a7sciuozn4pxdp5rca.arweave.net/h17OP-aI8_v8eMg2SwPHGaQGAG0-gfkJFHZbx9xv7EQ/mod.ts";
@@ -23,9 +26,12 @@ const config = {
 const args = [...Deno.args];
 const result = [];
 if (args.length < 2) throw new Error("missing wiki prompt");
+// delete the first argument. The first argument is returned and is set to wikiArg, and the "args" array is updated.
 const wikiArg = args.shift() ?? "";
+// initialize variables
 let wiki = new String();
 let _matchedWiki;
+// because of the way i structured this array, i have to handle the info it has in a special way. The data is nested, so I have to do extra work, but it is more concise and clean.
 const wikis = [
 	{ aliases: ["wikipedia", "wp"], site: "https://en.wikipedia.org/api/rest_v1/page/summary/", actualSite: "https://en.wikipedia.org/wiki/" },
 	{ aliases: ["simple_wikipedia", "swp"], site: "https://simple.wikipedia.org/api/rest_v1/page/summary/", actualSite: "https://simple.wikipedia.org/wiki/" },
@@ -39,10 +45,12 @@ for (const element of wikis) {
 		break;
 	}
 }
+// if there were no matches in the ENTIRE result array, then throw the error. If there is one match, it works okay.
 if (result.every((result) => result === false)) {
 	throw new Error("missing wiki type");
 }
 
+// encode the URI by appending it to the site, plus the arguments joined by a "_", plus a "?redirect=true" if config.REDIRECT is true.
 wiki = encodeURI(_matchedWiki?.site + args.join("_") + (config.REDIRECT ? "?redirect=true" : ""));
 
 const response = await fetch(wiki.toString());
