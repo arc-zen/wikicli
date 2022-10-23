@@ -47,6 +47,7 @@ wiki = encodeURI(_matchedWiki?.site + args.join("_") + (config.REDIRECT ? "?redi
 
 const response = await fetch(wiki.toString());
 const responseJSON = await response.json();
+if (responseJSON.title === "Not found.") throw new Error("page doesnt exist :(");
 
 const title = responseJSON.title;
 const description = responseJSON.description;
