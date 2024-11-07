@@ -1,4 +1,4 @@
-# introduction tres very short
+# wikiCLI
 
 deno cli so you can quickly look up wikipedia definitions.
 
@@ -10,6 +10,6 @@ deno install --allow-net -n wikicli --root "$HOME" https://raw.githubusercontent
 
 then move both files to your root directory.
 
-# und usage die very short ist
+# usage
 
 `wikicli (wikitype) (prompt)`<br> wikitype: `wikipedia`, OR `wp`, OR `simple_wikipedia`, OR `swp`<br> prompt: any amount of words optionally seperated by spaces or underscores (i.e. `Burts_Bees` or `Burts Bees`)<br>
